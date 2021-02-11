@@ -76,18 +76,18 @@ LB | Lower Bound
 BLB | Below Lower Bound
 
 
-Class | Variables | Input Partitions
+Class (org.jfree.data...) | Variables | Input Partitions
 --- | :-: | ---
-org.jfree.data.Range.contains | Value | Robust Worst Case Scenario - **AUB, UB, BUB, NOM, ALB, LB, and BLB**
-org.jfree.data.Range.constrain | Value | Robust Worst Case Scenario - **AUB, UB, BUB, NOM, ALB, LB, and BLB**
-org.jfree.data.Range.equals | Upperbound, Lowerbound | (When Referenced to Constant Object, R = reference, T = test) - <div><b>(R.upperbound == T.upperbound && R.lowerbound == T.lowerbound),<b><div><div><b>(R.upperbound != T.upperbound && R.lowerbound == T.lowerbound),<b><div><div><b>(R.upperbound == T.upperbound && R.lowerbound != T.lowerbound), <b><div><div><b>and (R.upperbound != T.upperbound && R.lowerbound != T.lowerbound)<b><div>
-org.jfree.data.Range.intersects | Upperbound, Lowerbound | (When Referenced to Constant Object, R = reference)  <div>Robust Worst Case Scenario - **AUB, UB, BUB, NOM, ALB, LB, and BLB**<div> where: [NOM has both boundaries inside R], [UB, BUB, ALB, and LB has one boundary inside R], and [AUB and BLB have no boundaries inside R]
-org.jfree.data.Range.shift | Delta | **Negative Delta, Positive Delta, and Delta is Zero**
-org.jfree.data.DataUtilities.calculateColumnTotal |
-org.jfree.data.DataUtilities.calculateRowTotal | 
-org.jfree.data.DataUtilities.createNumberArray |
-org.jfree.data.DataUtilities.createNumberArray2D |
-org.jfree.data.DataUtilities.getCumulativePercentages |
+Range.contains | Value | Robust Worst Case Scenario - **AUB, UB, BUB, NOM, ALB, LB, and BLB**
+Range.constrain | Value | Robust Worst Case Scenario - **AUB, UB, BUB, NOM, ALB, LB, and BLB**
+Range.equals | Upperbound, Lowerbound | (When Referenced to Constant Range Object, R = reference, T = test) - <div><b>(R.upperbound == T.upperbound && R.lowerbound == T.lowerbound),<b><div><div><b>(R.upperbound != T.upperbound && R.lowerbound == T.lowerbound),<b><div><div><b>(R.upperbound == T.upperbound && R.lowerbound != T.lowerbound), <b><div><div><b>and (R.upperbound != T.upperbound && R.lowerbound != T.lowerbound)<b><div>
+Range.intersects | Upperbound, Lowerbound | (When Referenced to Constant Range Object, R = reference)  <div>Robust Worst Case Scenario - **AUB, UB, BUB, NOM, ALB, LB, and BLB**<div> where: [NOM has both boundaries inside R], [UB, BUB, ALB, and LB has one boundary inside R], and [AUB and BLB have no boundaries inside R]
+Range.shift | Delta | **Negative Delta, Positive Delta, and Delta is Zero**
+DataUtilities.calculateColumnTotal | Column | (When Referenced to Constant Value2D Object) <div><b>(Column < 0),<b><div><div><b>(Column >= 0 && Column <= # of Columns)<b><div><div><b>and (Column > # of Columns)<b><div>
+DataUtilities.calculateRowTotal | Row | (When Referenced to Constant Value2D Object) <div><b>(Row < 0),<b><div><div><b>(Row >= 0 && Row <= # of Rows)<b><div><div><b>and (Row > # of Rows)<b><div>
+DataUtilities.createNumberArray | Data Array | **Empty Array, Array of Size 1, Array of Size n**
+DataUtilities.createNumberArray2D | Data 2D Array | **Empty Array, 1x1 Array, Column Array (1xn), Row Array(nx1), nxn Array**
+DataUtilities.getCumulativePercentages | Data | **Empty KeyedValues data, KeyedValues 1 data entry, KeyedValues n data entries**
 
 Additional clarification on the exact tests will be shown in the following section.
 
@@ -200,7 +200,6 @@ Code:
 **org.jfree.data.DataUtilities.createNumberArray**
 **org.jfree.data.DataUtilities.createNumberArray2D**
 **org.jfree.data.DataUtilities.getCumulativePercentages**
-
 
 ### Difficulties Encountered, Challenges Overcome, And Lessons Learned
 
