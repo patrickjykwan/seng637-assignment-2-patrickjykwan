@@ -76,8 +76,8 @@ LB | Lower Bound
 BLB | Below Lower Bound
 
 
-Class | Variables | Input Partitions |
-- | :-: | -
+Class | Variables | Input Partitions
+--- | :-: | ---
 org.jfree.data.Range.contains | Value | Robust Worst Case Scenario - **AUB, UB, BUB, NOM, ALB, LB, and BLB**
 org.jfree.data.Range.constrain | Value | Robust Worst Case Scenario - **AUB, UB, BUB, NOM, ALB, LB, and BLB**
 org.jfree.data.Range.equals | Upperbound, Lowerbound | (When Referenced to Constant Object, R = reference, T = test) - <div><b>(R.upperbound == T.upperbound && R.lowerbound == T.lowerbound),<b><div><div><b>(R.upperbound != T.upperbound && R.lowerbound == T.lowerbound),<b><div><div><b>(R.upperbound == T.upperbound && R.lowerbound != T.lowerbound), <b><div><div><b>and (R.upperbound != T.upperbound && R.lowerbound != T.lowerbound)<b><div>
@@ -108,7 +108,7 @@ Variables: Value
 Constant Variables: Range with lowerbound = 0, upperbound = 100
 
 Partition | (Input) Value | (Output) Expected | (Output) Actual
-- | :-: | :-: | :-:
+--- | :-: | :-: | :-:
 AUB| 101 | False | 
 UB| 100 | True | 
 BUB| 99 | True |
@@ -129,7 +129,7 @@ Variables: Value
 Constant Variables: Range with lowerbound = 0, upperbound = 100
 
 Partition | (Input) Value | (Output) Expected | (Output) Actual
-- | :-: | :-: | :-:
+--- | :-: | :-: | :-:
 AUB| 101 | 100 | 
 UB| 100 | 100 | 
 BUB| 99 | 99 |
@@ -149,7 +149,7 @@ Variables: Lowerbound, Upperbound
 Constant Variables: Range with lowerbound = 0, upperbound = 100
 
 Partition | (Input) Lowerbound | (Input) Upperbound | (Output) Expected | (Output) Actual
-- | :-: | :-: | :-: | :-:
+--- | :-: | :-: | :-: | :-:
 R.upperbound == T.upperbound && R.lowerbound == T.lowerbound | 0 | 100 | True
 R.upperbound != T.upperbound && R.lowerbound == T.lowerbound | 0 | 101 | False
 R.upperbound == T.upperbound && R.lowerbound != T.lowerbound | -1 | 100 | False
@@ -166,7 +166,7 @@ Variables: Lowerbound, Upperbound
 Constant Variables: Range with lowerbound = 0, upperbound = 100
 
 Partition | (Input) Lowerbound | (Input) Upperbound | (Output) Expected | (Output) Actual
-- | :-: | :-: | :-: | :-:
+--- | :-: | :-: | :-: | :-:
 AUB| 101 | 151 | False
 UB| 100 | 150 | True
 BUB| 99 | 149 | True
@@ -186,7 +186,7 @@ Variables: Delta
 Constant Variables: Range with lowerbound = 0, upperbound = 100
 
 Partition | (Input) Delta | (Output) Expected Lowerbound | (Output) Expected Upperbound | (Output) Actual Lowerbound | (Output) Actual Upperbound
-- | :-: | :-: | :-: | :-: | :-:
+--- | :-: | :-: | :-: | :-: | :-:
 Negative Delta | -25 | -25 | 75 
 Positive Delta | 25 | 25 | 125
 Delta is Zero | 0 | 0 | 100
