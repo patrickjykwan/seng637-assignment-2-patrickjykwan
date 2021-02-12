@@ -13,7 +13,7 @@ Patrick Kwan | #10103093 | pjykwan@ucalgary.ca
 
 ### Introduction
 
-This is the second lab of SENG 638: Dependability and Reliability of Software Systems. This lab is an introduction to automated unit testing with specified requirements for each test unit. The JUnit framework will be utilized to test methods from 2 classes, org.jfree.data.Range and org.jfree.data.DataUtilities, in the JFreeChart framework, and the test results will be displayed.
+This is the second lab of SENG 637: Dependability and Reliability of Software Systems. This lab is an introduction to automated unit testing with specified requirements for each test unit. The JUnit framework will be utilized to test methods from 2 classes, org.jfree.data.Range and org.jfree.data.DataUtilities, in the JFreeChart framework, and the test results will be displayed.
 
 
 The lab itself is divided into three sections: familiarization, unit test generation, and test code development. The contents of each section can be seen below:
@@ -142,12 +142,12 @@ LB| 0 | 0 | 0
 BLB| -1 | 0 | 50
 
 
-Explanation: <https://github.com/patrickjykwan/seng637-assignment-2-patrickjykwan/blob/main/src/org/jfree/data/test/RangeConstrainTest.java>
-
+Explanation: 
 The constrain method takes a double value and returns the closest boundary value if the value is outside of the range or it will return the value itself if within the range.
 There are 3 Partitions for the input value, that is the nominal values between the lower and upper bound and the invalid values less than the lower and greater than the upper bound. For this function, taking scale in consideration Strong Robust ECT was applied to test all seven Boundary Values as outlined in table 1. All but the BLB test case outlined in Table 4 was successful. This indicates that constrain method is improperly programed for negative values. 
 
-Code:
+Code: <https://github.com/patrickjykwan/seng637-assignment-2-patrickjykwan/blob/main/src/org/jfree/data/test/RangeConstrainTest.java>
+
 
 **org.jfree.data.Range.equals**
 
@@ -187,12 +187,12 @@ LB| -50 | 0 | True | True
 BLB| -51 | -1 | False | True
 
 
-Explanation: <https://github.com/patrickjykwan/seng637-assignment-2-patrickjykwan/blob/main/src/org/jfree/data/test/RangeIntersectsTest.java>
-
+Explanation: 
 The intersects method returns true if either the input lower and upper bound (of type double) falls within the lower and upper bound of Range it is being compared to.
 There are 3 Partitions for the input value, that is the nominal values between the lower and upper bound and the invalid values less than the lower and greater than the upper bound. For this function, taking scale in consideration Strong Robust ECT was applied to test all seven Boundary Values as outlined in table 1. All but the BLB test case outlined in Table 6 was successful. This indicates that intersects method is improperly programmed for when both input upper and lower bound is less than the lower bound of the Range. 
 
-Code:
+Code: <https://github.com/patrickjykwan/seng637-assignment-2-patrickjykwan/blob/main/src/org/jfree/data/test/RangeIntersectsTest.java>
+
 
 **org.jfree.data.Range.shift**
 
