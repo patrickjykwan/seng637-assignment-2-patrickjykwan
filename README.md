@@ -83,8 +83,9 @@ Range.constrain | Value | Robust Worst Case Scenario - **AUB, UB, BUB, NOM, ALB,
 Range.equals | Upperbound, Lowerbound | (When Referenced to Constant Range Object, R = reference, T = test) - <div><b>(R.upperbound == T.upperbound && R.lowerbound == T.lowerbound),<b><div><div><b>(R.upperbound != T.upperbound && R.lowerbound == T.lowerbound),<b><div><div><b>(R.upperbound == T.upperbound && R.lowerbound != T.lowerbound), <b><div><div><b>and (R.upperbound != T.upperbound && R.lowerbound != T.lowerbound)<b><div>
 Range.intersects | Upperbound, Lowerbound | (When Referenced to Constant Range Object, R = reference)  <div>Robust Worst Case Scenario - **AUB, UB, BUB, NOM, ALB, LB, and BLB**<div> where: [NOM has both boundaries inside R], [UB, BUB, ALB, and LB has one boundary inside R], and [AUB and BLB have no boundaries inside R]
 Range.shift | Delta | **Negative Delta, Positive Delta, and Delta is Zero**
-DataUtilities.calculateColumnTotal | Column | (When Referenced to Constant Value2D Object) <div><b>(Column < 0),<b><div><div><b>(Column >= 0 && Column <= # of Columns)<b><div><div><b>and (Column > # of Columns)<b><div>
-DataUtilities.calculateRowTotal | Row | (When Referenced to Constant Value2D Object) <div><b>(Row < 0),<b><div><div><b>(Row >= 0 && Row <= # of Rows)<b><div><div><b>and (Row > # of Rows)<b><div>
+DataUtilities.calculateColumnTotal | Column | (When Referenced to Constant Value2D Object) <div><b>(Column < 0),<b><div><div><b>(Column == 0)<b><div><div><b>(Column > 0 && Column < # of Columns)<b><div><div><b>(Column == # of Columns)<div><b><div><b>and (Column > # of Columns)<b><div>
+DataUtilities.calculateRowTotal | Row | (When Referenced to Constant Value2D Object) <div><b>(Row < 0),<b><div><b><div>(Row == 0)<div><b><div><b>(Row > 0 && Row < # of Rows)<b><div><b><div><div><b>(Row = # of Rows
+)<div><b>and (Row > # of Rows)<b><div>
 DataUtilities.createNumberArray | Data Array | **Empty Array, Array of Size 1, Array of Size n**
 DataUtilities.createNumberArray2D | Data 2D Array | **Empty Array, 1x1 Array, Column Array (1xn), Row Array(nx1), nxn Array**
 DataUtilities.getCumulativePercentages | Data | **Empty KeyedValues data, KeyedValues 1 data entry, KeyedValues n data entries**
@@ -221,19 +222,23 @@ Mocked Variables:
 Values2D Object:  
 [1 1 1]
 [2 2 2]
-[3 3 3]\
+[3 3 3]
 
 Table 8: Calculate Column Total Test Cases
 
 Partition | (Input) Column | (Output) Expected | (Output) Actual
 --- | :-: | :-: | :-: | :-:
 Column < 0 | -1 | 0 | Exception: Expected Out of Bounds Value Invocations
-Column >= 0 && Column <= # of Columns | 2| 6 | 6
-Column > # of Columns | 4 | 0 | Exception: Expected Out of Bounds Value Invocations
+Column == 0 | 0 | 6 | 6
+Column >= 0 && Column <= # of Columns | 1 | 6 | 6
+Column == # of Columns | 2 | 6 | 6
+Column > # of Columns | 3 | 0 | Exception: Expected Out of Bounds Value Invocations
 
 Explanation: 
 
-The calculateColumnTotal function requires an input of column index and a object that implements the Values2D interface, and returns the summation of that column. It was found that if the input column index was out of bounds of the Values2D object, the function does not perform boundary checks and calls a getter function to iterate through the rows of that column. Here two out of the three test cases failed.
+The calculateColumnTotal function requires an input of column index and a object that implements the Values2D interface, and returns the summation of that column. There are five partitions to utilize a Robust ECT format that covers an index of below lower bound, at lower bound, nominal, at upper bound, and above upper bound of the Values2D object. It was found that if the input column index was out of bounds of the Values2D object, the function does not perform boundary checks and calls a getter function to iterate through the rows of any input column. Otherwise, if a valid column index was entered, the test would pass.
+
+Overall, two out of the five test cases above failed.
 
 Code: <https://github.com/patrickjykwan/seng637-assignment-2-patrickjykwan/blob/main/src/org/jfree/data/test/DataUtilitiesTestCalculateColumnTotal.java>
 
@@ -252,12 +257,16 @@ Table 9: Calculate Row Total Test Cases
 Partition | (Input) Row | (Output) Expected | (Output) Actual
 --- | :-: | :-: | :-: | :-:
 Row < 0 | -1 | 0 | Exception: Expected Out of Bounds Value Invocations
-Row >= 0 && Row <= # of Rows | 2| 6 | 6
-Row > # of Rows | 4 | 0 | Exception: Expected Out of Bounds Value Invocations
+Row == 0 | 0 | 3 | 2
+Row > 0 && Row < # of Rows | 1 | 6 | 4
+Row == # of Rows | 2 | 9 | 6 
+Row > # of Rows | 3 | 0 | Exception: Expected Out of Bounds Value Invocations
 
 Explanation:
 
-Similar to calculateColumnTotal, the calculateRowTotal function requires an input of row index and a object that implements the Values2D interface, and returns a summation of that row. It was found that if the input row index was out of bounds of the Values2D object, the function does not perform boundary checks and calls a getter function to iterate through the columns of that row. Here two out of the three test cases failed.
+Similar to calculateColumnTotal, the calculateRowTotal function requires an input of row index and a object that implements the Values2D interface, and returns a summation of that row. Using five partitions for a Robust ECT format that covers an index of below lower bound, at lower bound, nominal, at upper bound, and above upper bound of the Values2D object. It was found that the the calculateRowTotal function does not add the value of one of the columns to the total, and thus outputting the wrong solution. In addition, the function does not perform boundary checks and calls a getter function to iterate through the columns of any input row.
+
+Overall, all of the five test cases above failed.
 
 Code: <https://github.com/patrickjykwan/seng637-assignment-2-patrickjykwan/blob/main/src/org/jfree/data/test/DataUtilitiesTestCalculateRowTotal.java>
 
@@ -275,7 +284,7 @@ Size n Array | {1.0, 2.0, 3.0, 4.0, 5.0} | {1.0, 2.0, 3.0, 4.0, 5.0} | Element[4
 
 Explanation:
 
-The createNumberArray function takes an input of a 1D double array, and outputs the corresponding 1D Number array. Upon testing, it was found that with non-empty arrays, the function does not copy the last element of the array, resulting a test failure when expecting a value but receiving a null value at the last index. Here, two out of the three test cases failed.
+The createNumberArray function takes an input of a 1D double array, and outputs the corresponding 1D Number array. Three partitions were used that had a data array of size zero, size one, and size n. Upon testing, it was found that with non-empty arrays, the function does not copy the last element of the array, resulting a test failure when expecting a value but receiving a null value at the last index. Here, two out of the three test cases failed.
 
 Code: <https://github.com/patrickjykwan/seng637-assignment-2-patrickjykwan/blob/main/src/org/jfree/data/test/DataUtilitiesTestCreateNumberArray.java>
 
@@ -295,7 +304,7 @@ nxn Array | { { 1.0, 2.0, 3.0, 4.0, 5.0 }, { 1.0, 2.0, 3.0, 4.0, 5.0 }, { 1.0, 2
 
 Explanation:
 
-Similar to the createNumberArray function, the createNumberArray2D function had the same issues. Upont tesing, it was found that with non-empty 2D arrays, the function does not copy the last element of each row, resulting in a test failure when expecting a value but receiving a null value at the last index of any given row. Here, four out of five test cases failed.
+Similar to the createNumberArray function, the createNumberArray2D function had the same issues. Five partitions were used that had a 2D data array of size 0x0, 1x1, 1xn, nx1, and nxn. Upon tesing, it was found that with non-empty 2D arrays, the function does not copy the last element of each row, resulting in a test failure when expecting a value but receiving a null value at the last index of any given row. Here, four out of five test cases failed.
 
 Code: <https://github.com/patrickjykwan/seng637-assignment-2-patrickjykwan/blob/main/src/org/jfree/data/test/DataUtilitiesTestCreateNumberArray2D.java>
 
@@ -315,7 +324,7 @@ n Entries KeyedValues | {{0, 5}, {1, 9}, {2, 2}} | {{0, 0.3125}, {1, 0.875}, {2,
 
 Explanation:
 
-Upon testing of the getCumulativePercentages function, it was found that the arithmetic was not being performed correctly. With this function called on a KeyedValues object with one entry, the output is a key with a value of infinity; which occurs when a number is divided by zero in Java. Therefore, the denominator used in the calculations is not being calculated properly.
+Upon testing of the getCumulativePercentages function, it was found that the arithmetic was not being performed correctly. Three partitions were used that had a KeyedValues object with zero entries, 1 entry, and n entries. With this function called on a KeyedValues object with one entry, the output is a key with a value of infinity; which occurs when a number is divided by zero in Java. Therefore, the denominator used in the calculations is not being calculated properly.
 
 Code: <https://github.com/patrickjykwan/seng637-assignment-2-patrickjykwan/blob/main/src/org/jfree/data/test/DataUtilitiesTestGetCumulativePercentages.java>
 
@@ -329,7 +338,7 @@ There were several lessons learned:
 3. How to use jmock to mimic the behaviour of complex interfaces in order to test methods that uses said interfaces.
 4. In the case of jmock how to refer back to javadocs to understand what expectations need to be implemented in order to test methods.
 
-It became apparent through testing that JUnit and specifically JMock needs to be implemented correctly to have a valuable test output. Mocking interfaces requires knowledge of how the function under test works, and requires precise code to mimic the functions that the SUT calls. If this code is not accurate, then the result will not be useful. Therefore, mocking can introduce additional bugs into your test scenario and give a false perception of what is wrong or what isn't wrong with the SUT. By hard programming the return of called functions within the SUT function, we can test its functionality. But what if the SUT function does not use the functions that the tester thinks it does. Within this lab, the group did not have access to the source code, and needed to assume based on the provided API how particular functions operated. This is a problem, because unknowingly, we may not have mocked everything that the SUT needed to be mocked and this introduces errors.
+It became apparent through testing that JUnit and specifically JMock needs to be implemented correctly to have a valuable test output. Mocking interfaces requires knowledge of how the function under test works, and requires precise code to mimic the functions that the SUT calls. If this code is not accurate, then the result will not be useful. Therefore, mocking can introduce additional bugs into your test scenario and give a false perception of what is wrong or what isn't wrong with the SUT. By hard programming the return of called functions within the SUT function, we can test its functionality. But what if the SUT function does not use the functions that the tester thinks it does? Within this lab, the group did not have access to the source code, and needed to assume based on the provided API how particular functions operated. This is a problem, because unknowingly, we may not have mocked everything that the SUT needed to be mocked and this introduces errors.
 
 
 ### Comment / Feedback for the Lab Itself 
