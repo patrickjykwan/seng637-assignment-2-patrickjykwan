@@ -1,3 +1,5 @@
+package org.jfree.data.test;
+
 import static org.junit.Assert.*;
 
 import java.util.Arrays;
@@ -37,10 +39,9 @@ public class RangeConstrainTest {
 	                 { 1, 1 }, { 99, 99 }, { 100, 100 }, { 101, 100 } });
 	 }
 	  
-	  //Messages were outputted for reference. An assertEquals was used to evaluate whether or not the test output matches the expectations.
+	  //Messages were output for reference. An assertEquals was used to evaluate whether or not the test output matches the expectations.
 		@Test
 		public void testRangeConstrainTest() {
-			System.out.println("input = " + firstNumber + "expected = " + expectedResult + " output = " + testRange.constrain(expectedResult));
 			assertEquals(expectedResult, testRange.constrain(firstNumber), 0.00001);
 		}
 		  
