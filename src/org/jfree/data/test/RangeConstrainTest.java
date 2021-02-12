@@ -33,7 +33,7 @@ public class RangeConstrainTest {
 	
 	  @Parameterized.Parameters
 	  public static Collection data() {
-	      return Arrays.asList(new Object[][] { { 50, 50 }, { 0, 0 }, { -10, 0 },
+	      return Arrays.asList(new Object[][] { { 50, 50 }, { 0, 0 }, { -1, 0 },
 	                 { 1, 1 }, { 99, 99 }, { 100, 100 }, { 101, 100 } });
 	 }
 	  

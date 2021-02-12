@@ -65,6 +65,7 @@ and
 
 To create a test suite, the API for each method was referred to. The following acronyms will be commonly used:
 
+Table 1: Boundary Value Testing Acronyms
 Acronym | Meaning
 :-: | -
 AUB | Above Upper Bound
@@ -76,6 +77,7 @@ LB | Lower Bound
 BLB | Below Lower Bound
 
 
+Table 2: Assignment 2 Test Cases
 Class (org.jfree.data...) | Variables | Input Partitions
 --- | :-: | ---
 Range.contains | Value | Robust Worst Case Scenario - **AUB, UB, BUB, NOM, ALB, LB, and BLB**
@@ -107,18 +109,21 @@ The test suites, test code, and result for each method can be seen below:
 Variables: Value
 Constant Variables: Range with lowerbound = 0, upperbound = 100
 
+Tables 3: Range Contains Test Cases
 Partition | (Input) Value | (Output) Expected | (Output) Actual
 --- | :-: | :-: | :-:
-AUB| 101 | False | 
-UB| 100 | True | 
-BUB| 99 | True |
-NOM| 50 | True |
-ALB| 1 | True |
-LB| 0 | True |
-BLB| -1 | False |
+AUB| 101 | False | False
+UB| 100 | True | True
+BUB| 99 | True | True
+NOM| 50 | True | True
+ALB| 1 | True | True
+LB| 0 | True | True 
+BLB| -1 | False | False
 
 
 Explanation:
+The contains method takes a double value and returns true if the value falls within the boundaries of the range, else returns false. 
+There are 3 Partitions for the input value, that is the valid nominal values between the lower and upper bound and the invalid values less than the lower and greater than the upper bound. For this function, taking scale in consideration Strong Robust ECT was applied to test all seven Boundary Values as outlined in table 1. All the test cases outlined in Table 3 was successful.
 
 Code:
 
@@ -128,18 +133,21 @@ Code:
 Variables: Value
 Constant Variables: Range with lowerbound = 0, upperbound = 100
 
+Tables 4: Range Constrain Test Cases
 Partition | (Input) Value | (Output) Expected | (Output) Actual
 --- | :-: | :-: | :-:
-AUB| 101 | 100 | 
-UB| 100 | 100 | 
-BUB| 99 | 99 |
-NOM| 50 | 50 |
-ALB| 1 | 1 |
-LB| 0 | 0 |
-BLB| -1 | 0 |
+AUB| 101 | 100 |  100
+UB| 100 | 100 |  100
+BUB| 99 | 99 | 99
+NOM| 50 | 50 | 50
+ALB| 1 | 1 | 1
+LB| 0 | 0 | 0
+BLB| -1 | 0 | 50
 
 
 Explanation:
+The constrain method takes a double value and returns the closest boundary value if the value is outside of the range or it will return the value itself if within the range.
+There are 3 Partitions for the input value, that is the nominal values between the lower and upper bound and the invalid values less than the lower and greater than the upper bound. For this function, taking scale in consideration Strong Robust ECT was applied to test all seven Boundary Values as outlined in table 1. All but the BLB test case outlined in Table 4 was successful. This indicates that constrain method is improperly programed for negative values. 
 
 Code:
 
@@ -148,15 +156,18 @@ Code:
 Variables: Lowerbound, Upperbound
 Constant Variables: Range with lowerbound = 0, upperbound = 100
 
+Tables 5: Range Equals Test Cases
 Partition | (Input) Lowerbound | (Input) Upperbound | (Output) Expected | (Output) Actual
 --- | :-: | :-: | :-: | :-:
-R.upperbound == T.upperbound && R.lowerbound == T.lowerbound | 0 | 100 | True
-R.upperbound != T.upperbound && R.lowerbound == T.lowerbound | 0 | 101 | False
-R.upperbound == T.upperbound && R.lowerbound != T.lowerbound | -1 | 100 | False
-R.upperbound != T.upperbound && R.lowerbound != T.lowerbound | -1 | 101 | False
+R.upperbound == T.upperbound && R.lowerbound == T.lowerbound | 0 | 100 | True | True
+R.upperbound != T.upperbound && R.lowerbound == T.lowerbound | 0 | 101 | False | True
+R.upperbound == T.upperbound && R.lowerbound != T.lowerbound | -1 | 100 | False | False
+R.upperbound != T.upperbound && R.lowerbound != T.lowerbound | -1 | 101 | False | False
 
 
 Explanation:
+The equals method returns true if the input Range matches the Range it is being compare to.
+There are 4 specific cases for the equals method (2 states ^ 2 variables), essentially checking the parity between the input lower and upper bound against the primary range's lower and upper bound.  For this method, taking scale in consideration Strong Robust ECT was applied. All but the 2nd test case outlined in Table 5 was successful. This indicates that equals method is improperly programmed for cases where the lower bound is correct but the upper bound is not. 
 
 Code:
 
@@ -165,18 +176,21 @@ Code:
 Variables: Lowerbound, Upperbound
 Constant Variables: Range with lowerbound = 0, upperbound = 100
 
+Table 6: Range Intersects Test Cases
 Partition | (Input) Lowerbound | (Input) Upperbound | (Output) Expected | (Output) Actual
 --- | :-: | :-: | :-: | :-:
-AUB| 101 | 151 | False
-UB| 100 | 150 | True
-BUB| 99 | 149 | True
-NOM| 25 | 75 | True
-ALB| -49 | 1 | True
-LB| -50 | 0 | True
-BLB| -51 | -1 | False
+AUB| 101 | 151 | False | False
+UB| 100 | 150 | True | True
+BUB| 99 | 149 | True | True
+NOM| 25 | 75 | True | True
+ALB| -49 | 1 | True | True
+LB| -50 | 0 | True | True
+BLB| -51 | -1 | False | True
 
 
 Explanation:
+The intersects method returns true if either the input lower and upper bound (of type double) falls within the lower and upper bound of Range it is being compared to.
+There are 3 Partitions for the input value, that is the nominal values between the lower and upper bound and the invalid values less than the lower and greater than the upper bound. For this function, taking scale in consideration Strong Robust ECT was applied to test all seven Boundary Values as outlined in table 1. All but the BLB test case outlined in Table 6 was successful. This indicates that intersects method is improperly programmed for when both input upper and lower bound is less than the lower bound of the Range. 
 
 Code:
 
@@ -185,6 +199,7 @@ Code:
 Variables: Delta
 Constant Variables: Range with lowerbound = 0, upperbound = 100
 
+Table 7: Range Shift Test Cases
 Partition | (Input) Delta | (Output) Expected Lowerbound | (Output) Expected Upperbound | (Output) Actual Lowerbound | (Output) Actual Upperbound
 --- | :-: | :-: | :-: | :-: | :-:
 Negative Delta | -25 | -25 | 75 
@@ -192,6 +207,8 @@ Positive Delta | 25 | 25 | 125
 Delta is Zero | 0 | 0 | 100
 
 Explanation:
+The shift method takes a double delta and an input Range and returns a new Range object that is the input Range shifted by the delta.
+There are 3 cases for the input value, that is a zero, negative and positive shift. For this function, taking scale in consideration Strong Robust ECT was applied to test all three cases. All the test cases outlined in Table 7 was successful.
 
 Code:
 
@@ -202,6 +219,15 @@ Code:
 **org.jfree.data.DataUtilities.getCumulativePercentages**
 
 ### Difficulties Encountered, Challenges Overcome, And Lessons Learned
+This section outlines all difficulties that were encountered and overcome along with all the lessons learned. The largest difficulty encountered was understanding how to use jmock. By experimenting with the sample code provided along with reviewing the lecture 3 slides and minor research online this difficulty was overcomed. Similarly JUnit was difficult to use in the beginning because of it being new to the team. Similarly the inclusion of sample coding along with experimentation and lecture slide review help the team to overcome this issue.
+
+There were several lessons learned:
+1. How to use JUnit to set up and run tests.
+2. How to use parameterized parameters to test multiple input values (useful for ECT)
+3. How to use jmock to mimic the behaviour of complex interfaces in order to test methods that uses said interfaces.
+4. In the case of jmock how to refer back to javadocs to understand what expectations need to be implemented in order to test methods.
+
 
 ### Comment / Feedback for the Lab Itself 
+This was a fulfilling lab, it was difficult to begin and without lab periods as in previous semesters it is hard to be certain that the tests were being implmemented correctly. 
 
