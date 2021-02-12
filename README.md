@@ -84,8 +84,7 @@ Range.equals | Upperbound, Lowerbound | (When Referenced to Constant Range Objec
 Range.intersects | Upperbound, Lowerbound | (When Referenced to Constant Range Object, R = reference)  <div>Robust Worst Case Scenario - **AUB, UB, BUB, NOM, ALB, LB, and BLB**<div> where: [NOM has both boundaries inside R], [UB, BUB, ALB, and LB has one boundary inside R], and [AUB and BLB have no boundaries inside R]
 Range.shift | Delta | **Negative Delta, Positive Delta, and Delta is Zero**
 DataUtilities.calculateColumnTotal | Column | (When Referenced to Constant Value2D Object) <div><b>(Column < 0),<b><div><div><b>(Column == 0)<b><div><div><b>(Column > 0 && Column < # of Columns)<b><div><div><b>(Column == # of Columns)<div><b><div><b>and (Column > # of Columns)<b><div>
-DataUtilities.calculateRowTotal | Row | (When Referenced to Constant Value2D Object) <div><b>(Row < 0),<b><div><b><div>(Row == 0)<div><b><div><b>(Row > 0 && Row < # of Rows)<b><div><b><div><div><b>(Row = # of Rows
-)<div><b>and (Row > # of Rows)<b><div>
+DataUtilities.calculateRowTotal | Row | (When Referenced to Constant Value2D Object) <div><b>(Row < 0),<b><div><b><div>(Row == 0)<div><b><div><b>(Row > 0 && Row < # of Rows)<b><div><b><div><div><b>(Row = # of Rows)<div><b>and (Row > # of Rows)<b><div>
 DataUtilities.createNumberArray | Data Array | **Empty Array, Array of Size 1, Array of Size n**
 DataUtilities.createNumberArray2D | Data 2D Array | **Empty Array, 1x1 Array, Column Array (1xn), Row Array(nx1), nxn Array**
 DataUtilities.getCumulativePercentages | Data | **Empty KeyedValues data, KeyedValues 1 data entry, KeyedValues n data entries**
