@@ -96,6 +96,7 @@ public class DataUtilitiesTestGetCumulativePercentages extends DataUtilities {
 		});
 	}
 
+	// Partition an empty KeyedValues object
 	@Test
 	public void PartitionEmpty() {
 		DefaultKeyedValues expected1 = new DefaultKeyedValues();
@@ -105,6 +106,7 @@ public class DataUtilitiesTestGetCumulativePercentages extends DataUtilities {
 		Assert.assertEquals(expected1, result1);
 	}
 
+	// Partition a KeyedValues object with one entry
 	@Test
 	public void PartitionOneEntry() {	
 		DefaultKeyedValues expected2 = new DefaultKeyedValues();
@@ -112,15 +114,10 @@ public class DataUtilitiesTestGetCumulativePercentages extends DataUtilities {
 		
 		// DataUtilities.getCumulativePercentages(KeyedValues data)
 		KeyedValues result2 = DataUtilities.getCumulativePercentages(values2);
-		
-		System.out.println("Result2, key: " + result2.getKey(0));
-		System.out.println("Result2, value: " + result2.getValue(result2.getKey(0)));
-		System.out.println("Expected2, key: " + expected2.getKey(0));
-		System.out.println("Expected2, value: " + expected2.getValue(expected2.getKey(0)));
-		
 		Assert.assertEquals(expected2, result2);
 	}
 
+	// Partition a KeyedValues object with N entries
 	@Test
 	public void PartitionNEntries() {
 		DefaultKeyedValues expected3 = new DefaultKeyedValues();
@@ -130,22 +127,6 @@ public class DataUtilitiesTestGetCumulativePercentages extends DataUtilities {
 		
 		// DataUtilities.getCumulativePercentages(KeyedValues data)
 		KeyedValues result3 = DataUtilities.getCumulativePercentages(values3);
-		
-		System.out.println("Result3, key: " + result3.getKey(0));
-		System.out.println("Result3, value: " + result3.getValue(result3.getKey(0)));
-		System.out.println("Expected3, key: " + expected3.getKey(0));
-		System.out.println("Expected3, value: " + expected3.getValue(expected3.getKey(0)));
-		
-		System.out.println("Result3, key: " + result3.getKey(1));
-		System.out.println("Result3, value: " + result3.getValue(result3.getKey(1)));
-		System.out.println("Expected3, key: " + expected3.getKey(1));
-		System.out.println("Expected3, value: " + expected3.getValue(expected3.getKey(1)));
-		
-		System.out.println("Result3, key: " + result3.getKey(2));
-		System.out.println("Result3, value: " + result3.getValue(result3.getKey(2)));
-		System.out.println("Expected3, key: " + expected3.getKey(2));
-		System.out.println("Expected3, value: " + expected3.getValue(expected3.getKey(2)));
-		
 		Assert.assertEquals(expected3, result3);
 	}
 }

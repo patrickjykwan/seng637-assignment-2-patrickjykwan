@@ -52,6 +52,7 @@ public class DataUtilitiesTestCalculateColumnTotal extends DataUtilities {
 		});
 	}
 
+	// partition a column index less than the first valid column index
 	@Test
 	public void PartitionLessThan() {
 
@@ -60,21 +61,42 @@ public class DataUtilitiesTestCalculateColumnTotal extends DataUtilities {
 		assertEquals(0, result1, .000000001d);
 
 	}
-
+	
+	// partition a column in the middle of the valid column index
 	@Test
 	public void PartitionWithin() {
 
 		// DataUtilities.calculateColumnTotal(Values2D values, ColumnIndex index)
-		double result2 = DataUtilities.calculateColumnTotal(values, 2);
+		double result2 = DataUtilities.calculateColumnTotal(values, 1);
 		assertEquals(6, result2, .000000001d);
 	}
 
+	// partition a column greater than the last valid column index
 	@Test
 	public void PartitionGreaterThan() {
 
 		// DataUtilities.calculateColumnTotal(Values2D values, ColumnIndex index)
-		double result3 = DataUtilities.calculateColumnTotal(values, 4);
+		double result3 = DataUtilities.calculateColumnTotal(values, 3);
 		assertEquals(0, result3, .000000001d);
+	}
+	
+	
+	// partition the first valid column index
+	@Test 
+	public void PartitionLowerBoundary() {
+		
+		// DataUtilities.calculateColumnTotal(Values2D values, ColumnIndex index)
+		double result4 = DataUtilities.calculateColumnTotal(values, 0);
+		assertEquals(6, result4, .000000001d);
+	}
+	
+	// partition the last valid column index
+	@Test 
+	public void PartitionUpperBoundary() {
+		
+		// DataUtilities.calculateColumnTotal(Values2D values, ColumnIndex index)
+		double result5 = DataUtilities.calculateColumnTotal(values, 2);
+		assertEquals(6, result5, .000000001d);
 	}
 
 }

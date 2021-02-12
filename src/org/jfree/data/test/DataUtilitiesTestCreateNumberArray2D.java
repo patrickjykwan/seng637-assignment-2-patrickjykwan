@@ -25,13 +25,15 @@ public class DataUtilitiesTestCreateNumberArray2D extends DataUtilities {
 				{ 1.0, 2.0, 3.0, 4.0, 5.0 }, { 1.0, 2.0, 3.0, 4.0, 5.0 }, { 1.0, 2.0, 3.0, 4.0, 5.0 } };
 	}
 
+	// partition an empty 2D array
 	@Test
 	public void PartitionEmpty() {
 		// DataUtilities.createNumberArray2D(double[][] data)
 		Number[][] result1 = DataUtilities.createNumberArray2D(dataArray1);
 		Assert.assertArrayEquals(new Number[][] { {} }, result1);
 	}
-
+	
+	// partition a 2D array of size 1x1
 	@Test
 	public void PartitionSizeOnexOne() {
 		// DataUtilities.createNumberArray2D(double[][] data)
@@ -39,6 +41,7 @@ public class DataUtilitiesTestCreateNumberArray2D extends DataUtilities {
 		Assert.assertArrayEquals(new Number[][] { { 1.0 } }, result2);
 	}
 
+	// partition a 2D array of size 1xN
 	@Test
 	public void PartitionSizeOnexN() {
 		// DataUtilities.createNumberArray2D(double[][] data)
@@ -46,6 +49,7 @@ public class DataUtilitiesTestCreateNumberArray2D extends DataUtilities {
 		Assert.assertArrayEquals(new Number[][] { { 1.0, 2.0, 3.0, 4.0, 5.0 } }, result3);
 	}
 
+	// partition a 2D array of size Nx1
 	@Test
 	public void PartitionSizeNxOne() {
 		// DataUtilities.createNumberArray2D(double[][] data)
@@ -53,6 +57,7 @@ public class DataUtilitiesTestCreateNumberArray2D extends DataUtilities {
 		Assert.assertArrayEquals(new Number[][] { { 1.0 }, { 2.0 }, { 3.0 }, { 4.0 }, { 5.0 } }, result4);
 	}
 
+	// partition a 2D array of size NxN
 	@Test
 	public void PartitionSizeNxN() {
 		// DataUtilities.createNumberArray2D(double[][] data)

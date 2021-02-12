@@ -20,39 +20,28 @@ public class DataUtilitiesTestCreateNumberArray extends DataUtilities {
 		dataArray3 = new double[] { 1.0, 2.0, 3.0, 4.0, 5.0 };
 	}
 
+	// partition an empty array
 	@Test
 	public void PartitionEmpty() {
 		// DataUtilities.createNumberArray(double[] data)
 		Number[] result1 = DataUtilities.createNumberArray(dataArray1);
-
-		for (int i = 0; i < result1.length; i++) {
-			System.out.println("Result1 " + result1[i].toString());
-		}
-
 		Assert.assertArrayEquals(new Number[] {}, result1);
 	}
 
+	// partition an array of size one
 	@Test
 	public void PartitionSizeOne() {
 		// DataUtilities.createNumberArray(double[] data)
 		Number[] result2 = DataUtilities.createNumberArray(dataArray2);
-
-//		for (int i = 0; i < result2.length; i++) {
-//			System.out.println("Result2 " + result2[i].toString());
-//		}
-
 		Assert.assertArrayEquals(new Number[] { 1.0 }, result2);
 	}
 
+	
+	// partition an array of size n
 	@Test
 	public void PartitionSizeN() {
 		// DataUtilities.createNumberArray(double[] data)
 		Number[] result3 = DataUtilities.createNumberArray(dataArray3);
-
-//		for (int i = 0; i < result3.length; i++) {
-//			System.out.println("Result3 " + result3[i].toString());
-//		}
-
 		Assert.assertArrayEquals(new Number[] { 1.0, 2.0, 3.0, 4.0, 5.0 }, result3);
 	}
 }
